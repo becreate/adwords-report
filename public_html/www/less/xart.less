@@ -1,0 +1,61 @@
+/**
+ * Vlastní šablona, která přepisuje výchozí nastavení
+ */
+
+// horní menu
+.navbar-static-top {
+  background: #001E36;
+  border-color: #0A93D5;
+  color: #ffffff;
+  .navbar-header {
+    .navbar-toggle {
+      background-color: transparent;
+      border-color: #ffffff;
+      .icon-bar {
+        background-color: #ffffff;
+      }
+      &:hover, &:active {
+        background-color: #12b4fa;
+      }
+    }
+    .navbar-brand {
+      color: #ffffff;
+    }
+  }
+  .navbar-nav {
+    .dropdown {
+      .dropdown-toggle {
+        display: inline-block;
+        &:focus {
+          color: #ffffff;
+        }
+      }
+    }
+    .dropdown.open {
+      .dropdown-toggle {
+        background-color: transparent;
+        color: #b3e304;
+      }
+      .dropdown-menu > li > a {
+        &:hover, &:focus {
+          color: #12b4fa;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  .navbar-nav > .active > a {
+    color: #b3e304;
+    background: transparent;
+    &:hover {
+      color: #b3e304;
+      background: transparent;
+    }
+  }
+  .navbar-nav > li > a {
+    color: #ffffff;
+    &:hover {
+      color: #12b4fa;
+    }
+  }
+}

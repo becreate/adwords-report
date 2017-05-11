@@ -1,0 +1,31 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 26.04.2017
+* File: default
+* Project: xreporty
+*}
+
+{block #title}Účty{/block}
+{block #description}{/block}
+
+{block content}
+    <h1>Google AdWords účty</h1>
+
+    {if $accounts}
+        <a n:href="update">Aktualizovat</a>
+        <table class="table table-responsive">
+            <thead>
+                <th>Název</th>
+            </thead>
+            <tbody>
+                <tr n:foreach="$accounts as $account">
+                    <td><a n:href="Campaign:default $account->customer_id">{$account->name}</a></td>
+                </tr>
+            </tbody>
+        </table>
+        {control visualPaginator}
+    {else}
+        <div class="alert alert-info">
+            Není vytvořen žádný účet.
+        </div>
+    {/if}

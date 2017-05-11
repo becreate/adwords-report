@@ -1,0 +1,52 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 01.05.2017
+* File: show
+* Project: xreporty
+*}
+
+{block #description}{/block}
+
+{block content}
+<h1 n:block="title">Klíčová slova</h1>
+<h2 n:ifset="$campaignName">Kampaň: {$campaignName}</h2>
+<h2 n:ifset="$adgroupName">Reklamní sestava: {$adgroupName}</h2>
+
+<a n:href="Adgroup:show $_GET['campaignId'], $_GET['customerId']">Zpět</a>
+<a n:href="update">Aktualizovat</a>
+{ifset $keywords}
+    <table class="table table-responsive">
+        <thead>
+        <th>Klíčové slovo</th>
+        <th>Stav</th>
+        <th>Zobrazení</th>
+        <th>Prokliky</th>
+        <th>CTR</th>
+        <th>Prům. CPC</th>
+        <th>Cena</th>
+        <th>Prům. pozice</th>
+        <th>Konverze</th>
+        <th>Konverzní poměr</th>
+        <th>Hodnota všech konverzí</th>
+        </thead>
+        <tbody>
+        <tr n:foreach="$keywords as $keyword">
+            <td>{$keyword->keyword_text}</td>
+            <td>{$keyword->status}</td>
+            <td>{$keyword->impressions}</td>
+            <td>{$keyword->clicks}</td>
+            <td>{$keyword->ctr}</td>
+            <td>{$keyword->avg_cpc}</td>
+            <td>{$keyword->cost}</td>
+            <td>{$keyword->avg_position}</td>
+            <td>{$keyword->conversion}</td>
+            <td>{$keyword->conv_rate}</td>
+            <td>{$keyword->total_conv_value}</td>
+        </tr>
+        </tbody>
+    </table>
+{else}
+    <div class="alert alert-info">
+        Není vytvořena žádná reklamní sestava.
+    </div>
+{/ifset}

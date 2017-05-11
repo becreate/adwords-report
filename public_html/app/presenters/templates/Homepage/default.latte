@@ -1,0 +1,48 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+<h1 n:block=title>Automatizace reportů z Google AdWords</h1>
+
+<p n:if="!$user->loggedIn">Pro zobrazení reportů je nutné se <a n:href="Sign:in">přihlásit</a> do aplikace.</p>
+
+{if $user->loggedIn}
+    <h2>Rychlý přehled</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #12b4fa;"><a n:href="Account:">Účty</a></div>
+                <div class="panel-body">
+                    <p>Počet účtů</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Kampaně</div>
+                <div class="panel-body">
+                    <p>Počet kampaní</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Reklamní sestavy</div>
+                <div class="panel-body">
+                    <p>Počet reklamních sestav</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Klíčová slova</div>
+                <div class="panel-body">
+                    <p>Počet klíčových slov</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+
+
+            
+

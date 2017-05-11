@@ -1,0 +1,22 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 26.04.2017
+* File: in
+* Project: xreporty
+*}
+
+{* OR
+{import '../components/form.latte'}
+{include form signInForm}
+*}
+
+{block content}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1 n:block=title>Přihlášení</h1>
+
+        {control signInForm}
+
+        <p><a n:href="up">Nemáte vytvořený účet? Registrujte se.</a></p>
+    </div>
+</div>

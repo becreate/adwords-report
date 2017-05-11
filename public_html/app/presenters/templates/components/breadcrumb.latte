@@ -1,0 +1,21 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 04.05.2017
+* File: BreadCrumb
+* Project: xreporty
+*}
+
+{block #title}{/block}
+{block #description}{/block}
+
+{block content}
+<ol class="breadcrumb">
+    <li n:foreach="$links as $link" n:class="!$link['link'] ? active">
+        <i n:class="$link['icon'] ? $link['icon']"></i>
+        {if $link['link']}
+            <a href="{$link['link']}" title="{$link['title']}">{$link['title']}</a>
+        {else}
+            {$link['title']}
+        {/if}
+    </li>
+</ol>

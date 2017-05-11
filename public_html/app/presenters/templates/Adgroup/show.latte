@@ -1,0 +1,52 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 26.03.2017
+* File: show
+* Project: xreporty
+*}
+
+{block #description}{/block}
+
+{block content}
+    <h1 n:block="title">Reklamní sestavy</h1>
+    <h2 n:if="isset($campaignName)">Kampaň: {$campaignName}</h2>
+<a n:href="Campaign:show $customerId">Zpět</a>
+<a n:href="update">Aktualizovat</a>
+    {ifset $adgroups}
+        <table class="table table-responsive">
+            <thead>
+                <th>Reklamní sestava</th>
+                <th>Status</th>
+                <th>Zobrazení</th>
+                <th>Prokliky</th>
+                <th>CTR</th>
+                <th>Prům. CPC</th>
+                <th>Cena</th>
+                <th>Prům. pozice</th>
+                <th>Konverze</th>
+                <th>Konverzní poměr</th>
+                <th>Hodnota všech konverzí</th>
+            </thead>
+            <tbody>
+            <tr n:foreach="$adgroups as $adgroup">
+                <td><a n:href="Keyword:show $adgroup->adgroup_id, $customerId, $adgroup->campaign_id">{$adgroup->adgroup_name}</a></td>
+                <td>{$adgroup->status}</td>
+                <td>{$adgroup->impressions}</td>
+                <td>{$adgroup->clicks}</td>
+                <td>{$adgroup->ctr}</td>
+                <td>{$adgroup->avg_cpc}</td>
+                <td>{$adgroup->cost}</td>
+                <td>{$adgroup->avg_position}</td>
+                <td>{$adgroup->conversion}</td>
+                <td>{$adgroup->conv_rate}</td>
+                <td>{$adgroup->total_conv_value}</td>
+            </tr>
+            </tbody>
+        </table>
+    {else}
+       <div class="alert alert-info">
+           Není vytvořena žádná reklamní sestava.
+       </div>
+    {/ifset}
+
+

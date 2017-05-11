@@ -1,0 +1,89 @@
+{**
+* User: Frantisek Kasa <frantisekkasa@gmail.com>
+* Date: 26.04.2017
+* File: show
+* Project: xreporty
+*}
+
+{block #description}{/block}
+
+{block content}
+    <h1 n:block=title>Výpis kampaní</h1>
+    {ifset $campaigns}
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <a n:href="Account:"><i class="icon-reply"></i> </a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a n:href="update"><i class="icon-arrows-cw"></i> </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {control sort}
+                </div>
+                <div class="col-md-4 text-right pull-right">
+                    {control downloadForm}
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-3">
+                {control filter}
+            </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <table class="table table-responsive">
+                        <thead>
+                        <th>Kampaň</th>
+                        <th>Status</th>
+                        <th>Zobrazení</th>
+                        <th>Prokliky</th>
+                        <th>CTR</th>
+                        <th>Prům. CPC</th>
+                        <th>Cena</th>
+                        <th>Prům. pozice</th>
+                        <th>Konverze</th>
+                        <th>Konverzní poměr</th>
+                        <th>Hodnota všech konverzí</th>
+                        </thead>
+                        <tbody>
+                        <tr n:foreach="$campaigns as $campaign">
+                            <td><a n:href="Adgroup:show $campaign->campaign_id, $campaign->customer_id">{$campaign->name}</a></td>
+                            <td>{$campaign->status}</td>
+                            <td>{$campaign->impressions}</td>
+                            <td>{$campaign->clicks}</td>
+                            <td>{$campaign->ctr}</td>
+                            <td>{$campaign->avg_cpc}</td>
+                            <td>{$campaign->cost}</td>
+                            <td>{$campaign->avg_position}</td>
+                            <td>{$campaign->conversion}</td>
+                            <td>{$campaign->conv_rate}</td>
+                            <td>{$campaign->total_conv_value}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pagination-bottom text-center">
+                                {control visualPaginator}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    {else}
+        <div class="alert alert-info">
+            Není vytvořena žádná kampaň.
+        </div>
+    {/ifset}
