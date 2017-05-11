@@ -50,20 +50,6 @@ class CampaignPresenter extends BasePresenter
 		$this->adwords_session = $this->adsapi->getConstructApiSession();
 	}
 
-	public function handleSort(array $sortData)
-	{
-		// TODO: seřadit data a vypsat je v šabloně
-		//$this->template->campaigns = $this->campaignManager->getCampaignsByCustomerId($this->customerId, $sortData);
-		// TODO: prázdná data
-		$this->ajaxData = $this->getHttpRequest()->getRawBody();
-		$this->ajaxData = $sortData;
-		/*if ($this->isAjax())
-		{
-			// překreslení objektu
-			$this->redrawControl('campaignList');
-		}*/
-	}
-
 	public function actionDefault($customerId)
 	{
 		parent::loadState($this->getParameters());
@@ -81,6 +67,20 @@ class CampaignPresenter extends BasePresenter
 		$this->processCampaignReports($this->adwords_session, $this->customerId);
 		$this->flashMessage('Kampaně byly aktualizovány.', 'success');
 		$this->redirect('Campaign:show');
+	}
+
+	public function handleSort(array $sortData)
+	{
+		// TODO: seřadit data a vypsat je v šabloně
+		//$this->template->campaigns = $this->campaignManager->getCampaignsByCustomerId($this->customerId, $sortData);
+		// TODO: prázdná data
+		$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
+		$this->ajaxData[] = $sortData;
+		/*if ($this->isAjax())
+		{
+			// překreslení objektu
+			$this->redrawControl('campaignList');
+		}*/
 	}
 
 	public function renderDefault($customerId, $sortData = array())
