@@ -25,6 +25,7 @@ services:
     - App\Forms\FormFactory
     - App\Forms\SignInFormFactory
     - App\Forms\SignUpFormFactory
+    - App\Forms\SortFormFactory
 
     adsapi: App\AdsMyExtension\OAuth2Authentication(%appDir%/adwordsMyExtension/adsapi_php.ini)
     router: App\RouterFactory::createRouter

@@ -10,6 +10,7 @@
 namespace App\Presenters;
 
 use App\Controls\SortFormControl;
+use App\Forms\SortFormFactory;
 use App\Model\CampaignManager;
 use Composer\Console\Application;
 use NasExt\Controls\FilterFormControl;
@@ -32,11 +33,12 @@ class CampaignPresenter extends BasePresenter
 {
 	/** @var  CampaignManager @inject */
 	public $campaignManager;
+	/** @var  SortFormFactory @inject */
+	public $sortFactory;
 
 	/** @persistent */
 	public $customerId;
 
-	public $ajaxData = array();
 
 	protected function startup()
 	{
@@ -50,14 +52,11 @@ class CampaignPresenter extends BasePresenter
 		$this->adwords_session = $this->adsapi->getConstructApiSession();
 	}
 
-	public function actionDefault($customerId)
+	public function actionDefault($customerId, array $sortData)
 	{
 		parent::loadState($this->getParameters());
 		$this['breadcrumb']->addLink('Účty', $this->link('Account:'));
 		$this['breadcrumb']->addLink('Kampaně');
-		dump($this->getHttpRequest());
-		$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
-		$this->ajaxData[] = $sortData;
 	}
 
 	public function actionShow($campaignId)
@@ -77,8 +76,8 @@ class CampaignPresenter extends BasePresenter
 		// TODO: seřadit data a vypsat je v šabloně
 		//$this->template->campaigns = $this->campaignManager->getCampaignsByCustomerId($this->customerId, $sortData);
 		// TODO: prázdná data
-		//$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
-		//$this->ajaxData[] = $sortData;
+		$this->ajaxData = $this->getHttpRequest()->getRawBody();
+		$this->ajaxData = $sortData;
 		/*if ($this->isAjax())
 		{
 			// překreslení objektu
@@ -92,8 +91,7 @@ class CampaignPresenter extends BasePresenter
 		$filter = $this['filter'];
 		$filterData = $filter->getData();
 
-		/** @var SortFormControl $sort */
-		$sortedData= $this['sort'];
+		$sortedData= $this['sortForm'];
 
 		/*if (!is_null($filterData['clicks']) && (!is_null($sortedData['name']) && !is_null($sortedData['cost'])))
 		{
@@ -128,6 +126,13 @@ class CampaignPresenter extends BasePresenter
 	public function renderShow()
 	{
 
+	}
+
+	protected function createComponentSortForm()
+	{
+		$sorting = ['ASC' => 'Vzestupně', 'DESC' => 'Sestupně'];
+		$this->sortFactory->setSortData($sorting);
+		return $this->sortFactory->create();
 	}
 
 	protected function createComponentDownloadForm()
@@ -168,21 +173,6 @@ class CampaignPresenter extends BasePresenter
 			->setPrompt('Vyberte...');
 
 		return $control;
-	}
-
-	protected function createComponentSort()
-	{
-		$form = new Form();
-		$form->setRenderer(new BootstrapRenderer());
-		$form->getElementPrototype()->class = 'ajax';
-
-		$sorting = ['ASC' => 'Vzestupně', 'DESC' => 'Sestupně'];
-
-		$form->addSelect('name', 'Název', $sorting)
-			->setAttribute('class', 'ajax');
-		$form->addSelect('cost', 'Cena', $sorting);
-
-		return $form;
 	}
 
 	/**
