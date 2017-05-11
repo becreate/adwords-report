@@ -55,6 +55,9 @@ class CampaignPresenter extends BasePresenter
 		parent::loadState($this->getParameters());
 		$this['breadcrumb']->addLink('Účty', $this->link('Account:'));
 		$this['breadcrumb']->addLink('Kampaně');
+		dump($this->getHttpRequest());
+		$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
+		$this->ajaxData[] = $sortData;
 	}
 
 	public function actionShow($campaignId)
@@ -74,8 +77,8 @@ class CampaignPresenter extends BasePresenter
 		// TODO: seřadit data a vypsat je v šabloně
 		//$this->template->campaigns = $this->campaignManager->getCampaignsByCustomerId($this->customerId, $sortData);
 		// TODO: prázdná data
-		$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
-		$this->ajaxData[] = $sortData;
+		//$this->ajaxData[] = $this->getHttpRequest()->getRawBody();
+		//$this->ajaxData[] = $sortData;
 		/*if ($this->isAjax())
 		{
 			// překreslení objektu
